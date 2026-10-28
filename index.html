@@ -33,7 +33,7 @@
 function createDigitImages(str) {
   return str.split("").map(n => {
     const img = document.createElement("img");
-    img.src = `img/${n}.png`;
+    img.src = `${n}.png`;
     img.className = "digit";
     return img;
   });
