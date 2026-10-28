@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>数字擬人化デジタル時計</title>
+<style>
+  body {
+    background: #ffffff;
+    color: #fff;
+    text-align: center;
+    font-family: sans-serif;
+  }
+  .clock, .date {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+  }
+  .digit {
+    width: 150px;
+    height: 240px;
+    margin: 2px;
+  }
+</style>
+</head>
+<body>
+
+<h2>画像デジタル時計</h2>
+
+<div class="date" id="date"></div>
+<div class="clock" id="clock"></div>
+
+<script>
+function createDigitImages(str) {
+  return str.split("").map(n => {
+    const img = document.createElement("img");
+    img.src = `img/${n}.png`;
+    img.className = "digit";
+    return img;
+  });
+}
+
+function updateClock() {
+  const now = new Date();
+
+  const y = now.getFullYear().toString();
+  const m = ("0" + (now.getMonth() + 1)).slice(-2);
+  const d = ("0" + now.getDate()).slice(-2);
+
+  const h = ("0" + now.getHours()).slice(-2);
+  const min = ("0" + now.getMinutes()).slice(-2);
+  const s = ("0" + now.getSeconds()).slice(-2);
+
+  const dateStr = y +'.'+ m +'.'+ d;
+  const timeStr = h +'：'+ min +'：'+ s;
+
+  const dateBox = document.getElementById("date");
+  const clockBox = document.getElementById("clock");
+
+  dateBox.innerHTML = "";
+  clockBox.innerHTML = "";
+
+  createDigitImages(dateStr).forEach(img => dateBox.appendChild(img));
+  createDigitImages(timeStr).forEach(img => clockBox.appendChild(img));
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+
+</body>
+</html>
